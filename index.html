@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookmark Vault</title>
+  
+  <!-- Bootstrap 5.3 & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #f0f4fd 0%, #eef2f6 100%);
+      font-family: system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+    }
+
+    .glass-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+    }
+
+    .form-control {
+      border-radius: 10px;
+      border: 1.5px solid #e2e8f0;
+      padding: 0.65rem 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    .bookmark-item {
+      border: 1px solid #e9edf3;
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 1rem;
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .bookmark-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+    }
+
+    .favicon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .favicon-box img {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+    }
+
+    .action-btn {
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      transition: all 0.15s;
+    }
+
+    .copy-pill {
+      font-size: 0.8rem;
+      border-radius: 20px;
+      padding: 0.25rem 0.75rem;
+    }
+  </style>
+</head>
+<body class="py-5">
+
+  <div class="container" style="max-width: 650px;">
+    
+    <!-- Top Header -->
+    <div class="text-center mb-4">
+      <div class="d-inline-flex align-items-center justify-content-center bg-primary text-white rounded-circle shadow-sm mb-2" style="width: 48px; height: 48px;">
+        <i class="bi bi-bookmark-heart-fill fs-5"></i>
+      </div>
+      <h3 class="fw-bold mb-1">Resource Vault</h3>
+      <p class="text-muted small">Save and access your favorite web links in one click</p>
+    </div>
+
+    <!-- Bookmark Input Form -->
+    <div class="glass-card p-4 mb-4">
+      <h5 class="fw-semibold mb-3 text-secondary" id="formHeader">Add a Website</h5>
+      
+      <form id="bookmarkForm">
+        <input type="hidden" id="editIndex">
+
+        <div class="mb-3">
+          <label class="form-label small fw-semibold text-secondary">Website Title</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light text-muted border-end-0"><i class="bi bi-card-text"></i></span>
+            <input type="text" id="siteTitle" class="form-control border-start-0" placeholder="e.g. GitHub" required>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label small fw-semibold text-secondary">Website URL</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light text-muted border-end-0"><i class="bi bi-link-45deg"></i></span>
+            <input type="text" id="siteUrl" class="form-control border-start-0" placeholder="e.g. github.com" required>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" id="submitBtn" class="btn btn-primary flex-grow-1 py-2 fw-semibold">
+            <i class="bi bi-plus-circle me-1"></i> Save Bookmark
+          </button>
+          <button type="button" id="cancelBtn" class="btn btn-light border py-2 d-none" onclick="cancelEdit()">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Header for List -->
+    <div class="d-flex justify-content-between align-items-center mb-3 px-1">
+      <h6 class="fw-bold text-secondary mb-0">Saved Links</h6>
+      <span class="badge bg-light text-secondary border px-2 py-1" id="countBadge">0 Links</span>
+    </div>
+
+    <!-- Bookmark Cards Container -->
+    <div id="bookmarkList"></div>
+
+    <!-- Empty State -->
+    <div id="emptyBox" class="glass-card p-5 text-center text-muted d-none">
+      <i class="bi bi-folder2-open display-4 opacity-50"></i>
+      <h6 class="mt-3">No bookmarks saved yet</h6>
+      <p class="small mb-0">Add your first URL using the form above.</p>
+    </div>
+
+  </div>
+
+  <script src="./main.js"></script>
+</body>
+</html>
